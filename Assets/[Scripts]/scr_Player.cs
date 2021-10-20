@@ -31,6 +31,7 @@ public class scr_Player : MonoBehaviour
     {
         KeyboardMovement();
         CheckBounds();
+        //TouchMovement();
     }
 
 
@@ -53,6 +54,29 @@ public class scr_Player : MonoBehaviour
         }
 
     }
+
+    //void TouchMovement()
+    //{
+    //    foreach (var touch in Input.touches)
+    //    {
+    //        var worldTouch = Camera.main.ScreenToWorldPoint(touch.position);
+
+    //        if (worldTouch.y > transform.position.y)
+    //        {
+    //            // direction is positive
+    //            direction = 1.0f;
+    //        }
+
+    //        if (worldTouch.y < transform.position.y)
+    //        {
+    //            // direction is negative
+    //            direction = -1.0f;
+    //        }
+
+    //        m_touchesEnded = worldTouch;
+
+    //    }
+    //}
 
 
     void CheckBounds()
@@ -78,6 +102,14 @@ public class scr_Player : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.GetComponent<scr_BounceshotRB>() != null)
+        {
+            Destroy(collision.gameObject);
+            ChargeShot();
+        }
+    }
 
     void StartCharging()
     {
@@ -92,12 +124,13 @@ public class scr_Player : MonoBehaviour
         GameObject rightShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetLeft, Quaternion.identity) as GameObject;
         GameObject leftShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetRight, Quaternion.identity) as GameObject;
 
-        //leftShot.GetComponent<scr_BounceshotRB>().Launch(-100, 100);
-        //rightShot.GetComponent<scr_BounceshotRB>().Launch(100, 100);
-
         leftShot.GetComponent<scr_BounceshotRB>().Launch(200, 200);
         rightShot.GetComponent<scr_BounceshotRB>().Launch(-200, 200);
 
+    }
+
+    void ChargeShot()
+    {
 
     }
 }
