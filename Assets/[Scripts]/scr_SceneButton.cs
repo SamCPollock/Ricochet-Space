@@ -1,3 +1,10 @@
+/*
+File name:      SceneButton.cs 
+Author name:    Sam Pollock, Student #101279608 
+Last modified:  October 1, 2021
+Description:    Handles scene changing.
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

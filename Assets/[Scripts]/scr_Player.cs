@@ -1,0 +1,103 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class scr_Player : MonoBehaviour
+{
+    public float movementSpeed;
+    public GameObject bounceShotPrefab;
+
+    public float chargingMovementSpeed;
+    public float normalMovementSpeed;
+    public float shotAngle = 30.0f;
+
+    public GameObject bounceShotRBPrefab;
+
+
+    private float horBounds = 2f;
+    private float verBounds = 4.6f;
+    private Vector3 shotOffsetLeft = new Vector3(-0.3f, 0f, 0f);
+    private Vector3 shotOffsetRight = new Vector3(0.3f, 0f, 0f);
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        KeyboardMovement();
+        CheckBounds();
+    }
+
+
+    void KeyboardMovement()
+    {
+        float hInput = Input.GetAxis("Horizontal");
+        float vInput = Input.GetAxis("Vertical");
+
+        transform.position += new Vector3(hInput * movementSpeed * Time.deltaTime, vInput * movementSpeed * Time.deltaTime, 0f);
+
+
+        if (Input.GetKeyDown("space"))
+        {
+            StartCharging();
+        }
+
+        if (Input.GetKeyUp("space"))
+        {
+            ReleaseCharging();
+        }
+
+    }
+
+
+    void CheckBounds()
+    {
+        // Check horizontal bounds
+        if (transform.position.x > horBounds)
+        {
+            transform.position = new Vector3(horBounds, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.x < -horBounds)
+        {
+            transform.position = new Vector3(-horBounds, transform.position.y, transform.position.z);
+        }
+
+        // Check vertical bounds
+        if (transform.position.y > verBounds)
+        {
+            transform.position = new Vector3(transform.position.x, verBounds, transform.position.z);
+        }
+        else if (transform.position.y < -verBounds)
+        {
+            transform.position = new Vector3(transform.position.x, -verBounds, transform.position.z);
+        }
+    }
+
+
+    void StartCharging()
+    {
+        movementSpeed = chargingMovementSpeed;
+    }
+
+    void ReleaseCharging()
+    {
+        movementSpeed = normalMovementSpeed;
+        //Instantiate(bounceShotPrefab, gameObject.transform.position + shotOffsetLeft, Quaternion.Euler(0f, 0f, shotAngle));
+        //Instantiate(bounceShotPrefab, gameObject.transform.position + shotOffsetRight, Quaternion.Euler(0f, 0f, -shotAngle));
+        GameObject rightShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetLeft, Quaternion.identity) as GameObject;
+        GameObject leftShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetRight, Quaternion.identity) as GameObject;
+
+        //leftShot.GetComponent<scr_BounceshotRB>().Launch(-100, 100);
+        //rightShot.GetComponent<scr_BounceshotRB>().Launch(100, 100);
+
+        leftShot.GetComponent<scr_BounceshotRB>().Launch(200, 200);
+        rightShot.GetComponent<scr_BounceshotRB>().Launch(-200, 200);
+
+
+    }
+}
