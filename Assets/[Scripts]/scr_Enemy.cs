@@ -6,7 +6,11 @@ public class scr_Enemy : MonoBehaviour
 {
 
     public int health;
+    public float shotCooldown = 2;
+    public GameObject enemyShotPrefab;
+
     private Rigidbody2D rb;
+    private float timeUntilNextShot;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +23,7 @@ public class scr_Enemy : MonoBehaviour
     void Update()
     {
         Movement();
+        ShotTimer();
     }
 
 
@@ -33,6 +38,21 @@ public class scr_Enemy : MonoBehaviour
 
         }
 
+    }
+
+    void ShotTimer()
+    {
+        if (Time.time > timeUntilNextShot)
+        {
+            Shoot();
+        }
+    }
+
+    void Shoot()
+    {
+        GameObject shot = Instantiate(enemyShotPrefab, transform.position, Quaternion.identity);
+        shot.transform.localScale = new Vector3(2, -2, 1);
+        timeUntilNextShot = Time.time + shotCooldown;
     }
 
     private void FixedUpdate()

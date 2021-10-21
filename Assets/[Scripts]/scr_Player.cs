@@ -16,6 +16,7 @@ public class scr_Player : MonoBehaviour
 
     private float horBounds = 2f;
     private float verBounds = 4.6f;
+    private int lives = 3;
     private Vector3 shotOffsetLeft = new Vector3(-0.3f, 0f, 0f);
     private Vector3 shotOffsetRight = new Vector3(0.3f, 0f, 0f);
 
@@ -104,10 +105,18 @@ public class scr_Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // Bounce shot caught
         if (collision.gameObject.GetComponent<scr_BounceshotRB>() != null)
         {
             Destroy(collision.gameObject);
             ChargeShot();
+        }
+        // Hit by enemy projectile 
+        if (collision.gameObject.GetComponent<scr_EnemyShot>() != null)
+        {
+            Destroy(collision.gameObject);
+            lives--;
+            Debug.Log("LIVES REMAINING: " + lives);
         }
     }
 
