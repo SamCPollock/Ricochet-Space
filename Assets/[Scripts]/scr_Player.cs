@@ -10,8 +10,10 @@ public class scr_Player : MonoBehaviour
     public float chargingMovementSpeed;
     public float normalMovementSpeed;
     public float shotAngle = 30.0f;
+    public float powerShotChargeTime;
 
     public GameObject bounceShotRBPrefab;
+    public GameObject powerShotPrefab;
 
 
     private float horBounds = 2f;
@@ -109,7 +111,7 @@ public class scr_Player : MonoBehaviour
         if (collision.gameObject.GetComponent<scr_BounceshotRB>() != null)
         {
             Destroy(collision.gameObject);
-            ChargeShot();
+            PowerShot();
         }
         // Hit by enemy projectile 
         if (collision.gameObject.GetComponent<scr_EnemyShot>() != null)
@@ -138,8 +140,15 @@ public class scr_Player : MonoBehaviour
 
     }
 
-    void ChargeShot()
+    void PowerShot()
     {
-
+        Invoke("LaunchPowerShot", powerShotChargeTime);
     }
+
+    void LaunchPowerShot()
+    {
+        GameObject powerShot = Instantiate(powerShotPrefab, gameObject.transform.position, Quaternion.identity) as GameObject;
+    }
+
+
 }

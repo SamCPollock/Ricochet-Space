@@ -23,7 +23,12 @@ public class scr_Enemy : MonoBehaviour
     void Update()
     {
         Movement();
-        ShotTimer();
+        AutomaticShooting();
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
 
@@ -40,7 +45,7 @@ public class scr_Enemy : MonoBehaviour
 
     }
 
-    void ShotTimer()
+    void AutomaticShooting()
     {
         if (Time.time > timeUntilNextShot)
         {
@@ -66,10 +71,7 @@ public class scr_Enemy : MonoBehaviour
         if (collision.gameObject.GetComponent<scr_BounceshotRB>() != null)
         {
             health--;
-            if (health <= 0)
-            {
-                Destroy(gameObject);
-            }
         }
+
     }
 }
