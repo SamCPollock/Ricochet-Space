@@ -70,7 +70,7 @@ public class scr_Enemy : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<scr_BounceshotRB>() != null)
         {
-            health--;
+            //health--;
         }
 
     }

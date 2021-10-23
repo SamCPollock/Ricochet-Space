@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class scr_Player : MonoBehaviour
 {
-    public float movementSpeed;
-    public GameObject bounceShotPrefab;
 
+    [Header("Movement")]
+    public float movementSpeed;
     public float chargingMovementSpeed;
     public float normalMovementSpeed;
     public float shotAngle = 30.0f;
+
+    [Header("Powershots")]
     public float powerShotChargeTime;
 
+    [Header("BatteryShots")]
+    public float shotBattery;
+    public float shotBatteryMax;
+    public float shotCost;
+    public float batteryRechargeRate;
+    public float batteryPerBounce;
+
+    [Header("Prefabs")]
     public GameObject bounceShotRBPrefab;
+    public GameObject bounceShotPrefab;
     public GameObject powerShotPrefab;
 
 
@@ -22,19 +33,23 @@ public class scr_Player : MonoBehaviour
     private Vector3 shotOffsetLeft = new Vector3(-0.3f, 0f, 0f);
     private Vector3 shotOffsetRight = new Vector3(0.3f, 0f, 0f);
 
+    //private Vector2 touchStartPos = new Vector2(0, 0);
+    //private Vector2 touchMovePos = new Vector2(0, 0);
+    private Vector3 moveTarget;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        
+        moveTarget = gameObject.transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
+        TouchMovement();
         KeyboardMovement();
         CheckBounds();
-        //TouchMovement();
+        GenerateBattery();
+
     }
 
 
@@ -80,6 +95,86 @@ public class scr_Player : MonoBehaviour
 
     //    }
     //}
+
+    void TouchMovement()
+    {
+        if (Input.touchCount > 0)
+        {
+            moveTarget = Camera.main.ScreenToWorldPoint(Input.touches[0].position);
+            Debug.Log(moveTarget);
+
+            float xDistance = gameObject.transform.position.x - moveTarget.x;
+            float yDistance = gameObject.transform.position.y - moveTarget.y;
+
+
+            float step = movementSpeed * Time.deltaTime;
+
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, moveTarget, step);
+            gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+            //if (xDistance > 0)
+            //{
+            //    {
+            //        gameObject.transform.Translate(new Vector3(-movementSpeed * Time.deltaTime, 0f, 0f));
+            //    }
+            //    gameObject.transform.Translate(new Vector3(-movementSpeed * Time.deltaTime, 0f, 0f));
+            //}
+            //else if (xDistance < 0)
+            //{
+            //    gameObject.transform.Translate(new Vector3(movementSpeed * Time.deltaTime, 0f, 0f));
+
+            //    gameObject.transform.
+            //}
+
+
+            //if (yDistance > 0)
+            //{
+            //    gameObject.transform.Translate(new Vector3(0f, -movementSpeed* Time.deltaTime, 0f));
+            //}
+            //else if (yDistance < 0)
+            //{
+            //    gameObject.transform.Translate(new Vector3(0.0f, movementSpeed * Time.deltaTime, 0f));
+            //}
+        }
+
+  
+
+
+
+        #region Virtual Joystick
+        ////Virtual Joystick -- RETIRED DUE TO JANKINESS, preserved for reference.
+        //float horizontalInput = 0;
+        //float verticalInput = 0;
+
+        //if (Input.touchCount > 0)
+        //{
+        //    if (Input.GetTouch(0).phase == TouchPhase.Began)
+        //    {
+        //        touchStartPos = Input.touches[0].position;
+        //        Debug.Log("TouchSTARTPOS: " + touchStartPos);
+        //    }
+
+        //    if (Input.GetTouch(0).phase == TouchPhase.Moved)
+        //    {
+        //        touchMovePos = Input.touches[0].position;
+        //        Debug.Log("TouchMOVEPOS: " + touchMovePos);
+
+        //            horizontalInput = (touchMovePos.x - touchStartPos.x ) * 0.01f;
+        //            Debug.Log(touchMovePos.x + " - " + touchStartPos.x + " = " + (touchMovePos.x - touchStartPos.x));
+        //        if (horizontalInput > 10)
+        //            horizontalInput = 10;
+        //        else if (horizontalInput < -10)
+        //            horizontalInput = -10;
+        //        transform.position += new Vector3(horizontalInput * movementSpeed * Time.deltaTime, verticalInput * movementSpeed * Time.deltaTime, 0f);
+
+        //    }
+
+        //}
+        #endregion
+
+
+
+
+    }
 
 
     void CheckBounds()
@@ -130,14 +225,18 @@ public class scr_Player : MonoBehaviour
     void ReleaseCharging()
     {
         movementSpeed = normalMovementSpeed;
-        //Instantiate(bounceShotPrefab, gameObject.transform.position + shotOffsetLeft, Quaternion.Euler(0f, 0f, shotAngle));
-        //Instantiate(bounceShotPrefab, gameObject.transform.position + shotOffsetRight, Quaternion.Euler(0f, 0f, -shotAngle));
-        GameObject rightShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetLeft, Quaternion.identity) as GameObject;
-        GameObject leftShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetRight, Quaternion.identity) as GameObject;
 
-        leftShot.GetComponent<scr_BounceshotRB>().Launch(200, 200);
-        rightShot.GetComponent<scr_BounceshotRB>().Launch(-200, 200);
+        if (shotBattery >= shotCost)
+        {
+            //Instantiate(bounceShotPrefab, gameObject.transform.position + shotOffsetLeft, Quaternion.Euler(0f, 0f, shotAngle));
+            //Instantiate(bounceShotPrefab, gameObject.transform.position + shotOffsetRight, Quaternion.Euler(0f, 0f, -shotAngle));
+            GameObject rightShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetLeft, Quaternion.identity) as GameObject;
+            GameObject leftShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetRight, Quaternion.identity) as GameObject;
 
+            leftShot.GetComponent<scr_BounceshotRB>().Launch(200, 200);
+            rightShot.GetComponent<scr_BounceshotRB>().Launch(-200, 200);
+            shotBattery -= shotCost;
+        }
     }
 
     void PowerShot()
@@ -148,6 +247,19 @@ public class scr_Player : MonoBehaviour
     void LaunchPowerShot()
     {
         GameObject powerShot = Instantiate(powerShotPrefab, gameObject.transform.position, Quaternion.identity) as GameObject;
+    }
+
+    void GenerateBattery()
+    {
+        if (shotBattery < shotBatteryMax)
+        {
+            shotBattery += batteryRechargeRate * Time.deltaTime;
+        }
+
+        if (shotBattery > shotBatteryMax)
+        {
+            shotBattery = shotBatteryMax;
+        }
     }
 
 
