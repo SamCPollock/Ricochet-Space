@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.UI;
 
 public class scr_Player : MonoBehaviour
 {
@@ -15,23 +18,32 @@ public class scr_Player : MonoBehaviour
     public float powerShotChargeTime;
 
     [Header("BatteryShots")]
+    public bool isAutoShooting;
     public float shotBattery;
     public float shotBatteryMax;
     public float shotCost;
     public float batteryRechargeRate;
     public float batteryPerBounce;
 
+    [Header("Scoring")]
+    public int lives = 3;
+    public int score = 0;
+
     [Header("Prefabs")]
     public GameObject bounceShotRBPrefab;
     public GameObject bounceShotPrefab;
     public GameObject powerShotPrefab;
+    public GameObject hollowCirclePrefab;
+    public GameObject scoreText;
+    public GameObject batterySliderRef;
 
 
     private float horBounds = 2f;
     private float verBounds = 4.6f;
-    private int lives = 3;
     private Vector3 shotOffsetLeft = new Vector3(-0.3f, 0f, 0f);
     private Vector3 shotOffsetRight = new Vector3(0.3f, 0f, 0f);
+    private TextMeshProUGUI scoreTMP;
+    private Slider batterySliderUI;
 
     //private Vector2 touchStartPos = new Vector2(0, 0);
     //private Vector2 touchMovePos = new Vector2(0, 0);
@@ -41,6 +53,8 @@ public class scr_Player : MonoBehaviour
     void Start()
     {
         moveTarget = gameObject.transform.position;
+        scoreTMP = scoreText.GetComponent<TextMeshProUGUI>();
+        batterySliderUI = batterySliderRef.GetComponent<Slider>();
     }
 
     void Update()
@@ -101,7 +115,6 @@ public class scr_Player : MonoBehaviour
         if (Input.touchCount > 0)
         {
             moveTarget = Camera.main.ScreenToWorldPoint(Input.touches[0].position);
-            Debug.Log(moveTarget);
 
             float xDistance = gameObject.transform.position.x - moveTarget.x;
             float yDistance = gameObject.transform.position.y - moveTarget.y;
@@ -111,6 +124,12 @@ public class scr_Player : MonoBehaviour
 
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, moveTarget, step);
             gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
+
+            if (isAutoShooting && shotBattery >= shotCost)
+            {
+                LaunchBatteryShots();
+            }
+
             //if (xDistance > 0)
             //{
             //    {
@@ -212,8 +231,7 @@ public class scr_Player : MonoBehaviour
         if (collision.gameObject.GetComponent<scr_EnemyShot>() != null)
         {
             Destroy(collision.gameObject);
-            lives--;
-            Debug.Log("LIVES REMAINING: " + lives);
+            LoseLife();
         }
     }
 
@@ -224,23 +242,31 @@ public class scr_Player : MonoBehaviour
 
     void ReleaseCharging()
     {
+
         movementSpeed = normalMovementSpeed;
 
         if (shotBattery >= shotCost)
         {
             //Instantiate(bounceShotPrefab, gameObject.transform.position + shotOffsetLeft, Quaternion.Euler(0f, 0f, shotAngle));
             //Instantiate(bounceShotPrefab, gameObject.transform.position + shotOffsetRight, Quaternion.Euler(0f, 0f, -shotAngle));
-            GameObject rightShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetLeft, Quaternion.identity) as GameObject;
-            GameObject leftShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetRight, Quaternion.identity) as GameObject;
-
-            leftShot.GetComponent<scr_BounceshotRB>().Launch(200, 200);
-            rightShot.GetComponent<scr_BounceshotRB>().Launch(-200, 200);
-            shotBattery -= shotCost;
+            LaunchBatteryShots();
         }
+    }
+
+    void LaunchBatteryShots()
+    {
+        GameObject rightShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetLeft, Quaternion.identity) as GameObject;
+        GameObject leftShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetRight, Quaternion.identity) as GameObject;
+
+        leftShot.GetComponent<scr_BounceshotRB>().Launch(200, 200);
+        rightShot.GetComponent<scr_BounceshotRB>().Launch(-200, 200);
+        shotBattery -= shotCost;
     }
 
     void PowerShot()
     {
+        GameObject hollowCircle = Instantiate(hollowCirclePrefab, gameObject.transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity) as GameObject;
+        hollowCircle.transform.SetParent(gameObject.transform);
         Invoke("LaunchPowerShot", powerShotChargeTime);
     }
 
@@ -260,7 +286,41 @@ public class scr_Player : MonoBehaviour
         {
             shotBattery = shotBatteryMax;
         }
+
+        batterySliderUI.value = shotBattery;
+        
     }
 
+
+    public void AddScore(int scoreToAdd)
+    {
+        score += scoreToAdd;
+        scoreTMP.text = score.ToString();
+    }
+
+    public void LoseLife()
+    {
+
+        lives--;
+
+        
+
+        Debug.Log("LIVES REMAINING: " + lives);
+        if (lives == 2)
+        {
+            Destroy(GameObject.Find("Lives3"));
+        }
+        if (lives == 1)
+        {
+            Destroy(GameObject.Find("Lives2"));
+        }
+        if (lives <= 0)
+        {
+            Destroy(GameObject.Find("Lives1"));
+            SceneManager.LoadScene(3);
+
+        }
+
+    }
 
 }

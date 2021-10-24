@@ -8,6 +8,7 @@ public class scr_Enemy : MonoBehaviour
     public int health;
     public float shotCooldown = 2;
     public GameObject enemyShotPrefab;
+    public int scoreValue = 50;
 
     private Rigidbody2D rb;
     private float timeUntilNextShot;
@@ -27,6 +28,7 @@ public class scr_Enemy : MonoBehaviour
 
         if (health <= 0)
         {
+            GameObject.Find("Player").GetComponent<scr_Player>().AddScore(scoreValue);
             Destroy(gameObject);
         }
     }
