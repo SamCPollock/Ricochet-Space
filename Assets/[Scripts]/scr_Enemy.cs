@@ -28,6 +28,7 @@ public class scr_Enemy : MonoBehaviour
 
         if (health <= 0)
         {
+            scr_SoundEffectsManager.SFXManager.PlaySoundEffect(7);
             GameObject.Find("Player").GetComponent<scr_Player>().AddScore(scoreValue);
             Destroy(gameObject);
         }
@@ -73,6 +74,7 @@ public class scr_Enemy : MonoBehaviour
         if (collision.gameObject.GetComponent<scr_BounceshotRB>() != null)
         {
             //health--;
+            scr_SoundEffectsManager.SFXManager.PlaySoundEffect(2);
         }
 
     }

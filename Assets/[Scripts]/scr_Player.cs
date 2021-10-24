@@ -224,6 +224,7 @@ public class scr_Player : MonoBehaviour
         // Bounce shot caught
         if (collision.gameObject.GetComponent<scr_BounceshotRB>() != null)
         {
+            scr_SoundEffectsManager.SFXManager.PlaySoundEffect(0);
             Destroy(collision.gameObject);
             PowerShot();
         }
@@ -255,6 +256,7 @@ public class scr_Player : MonoBehaviour
 
     void LaunchBatteryShots()
     {
+        scr_SoundEffectsManager.SFXManager.PlaySoundEffect(1);
         GameObject rightShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetLeft, Quaternion.identity) as GameObject;
         GameObject leftShot = Instantiate(bounceShotRBPrefab, gameObject.transform.position + shotOffsetRight, Quaternion.identity) as GameObject;
 
@@ -265,6 +267,7 @@ public class scr_Player : MonoBehaviour
 
     void PowerShot()
     {
+        scr_SoundEffectsManager.SFXManager.PlaySoundEffect(5);
         GameObject hollowCircle = Instantiate(hollowCirclePrefab, gameObject.transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity) as GameObject;
         hollowCircle.transform.SetParent(gameObject.transform);
         Invoke("LaunchPowerShot", powerShotChargeTime);
@@ -302,8 +305,9 @@ public class scr_Player : MonoBehaviour
     {
 
         lives--;
+        scr_SoundEffectsManager.SFXManager.PlaySoundEffect(6);
 
-        
+
 
         Debug.Log("LIVES REMAINING: " + lives);
         if (lives == 2)

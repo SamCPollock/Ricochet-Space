@@ -39,6 +39,11 @@ public class scr_BounceshotRB : MonoBehaviour
         {
             playerScript.shotBattery += batteryPerBounce;
         }
+        else if (collision.gameObject.tag == "Walls")
+        {
+            scr_SoundEffectsManager.SFXManager.PlaySoundEffect(3);
+
+        }
     }
 
     public void PrintHello()
