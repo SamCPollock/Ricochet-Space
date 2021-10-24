@@ -317,10 +317,28 @@ public class scr_Player : MonoBehaviour
         if (lives <= 0)
         {
             Destroy(GameObject.Find("Lives1"));
-            SceneManager.LoadScene(3);
+            GameOver();
 
         }
 
+    }
+
+    void GameOver()
+    {
+        if (!PlayerPrefs.HasKey("Highscore"))
+        {
+            PlayerPrefs.SetInt("Highscsore", 0);
+        }
+
+
+        PlayerPrefs.SetInt("Score", score);
+
+        if (PlayerPrefs.GetInt("Highscore") < score)
+        {
+            PlayerPrefs.SetInt("Highscore", score);
+            Debug.Log("NEW HIGH SCORE OF: " + PlayerPrefs.GetInt("Highscore"));
+        }
+        SceneManager.LoadScene(3);
     }
 
 }

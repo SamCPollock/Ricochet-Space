@@ -5,7 +5,8 @@ using UnityEngine;
 public class scr_PowerShot : MonoBehaviour
 {
     public float speed;
-    public int damage; 
+    public int damage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,11 @@ public class scr_PowerShot : MonoBehaviour
             collision.gameObject.GetComponent<scr_Enemy>().health -= damage;
             Explode();
         }
+        if (collision.gameObject.GetComponent<scr_Rocket>() != null)
+        {
+            Explode();
+        }
+        
     }
 
     public void Explode()
