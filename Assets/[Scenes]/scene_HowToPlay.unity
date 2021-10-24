@@ -148,16 +148,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 88107745}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.4544542, y: 6.1748366, z: 6.1748366}
   m_Children: []
-  m_Father: {fileID: 590871571}
-  m_RootOrder: 10
+  m_Father: {fileID: 251576600}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.328369, y: 605}
+  m_AnchoredPosition: {x: 1032.1447, y: 1074.8955}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &88107747
@@ -371,14 +371,16 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.28948134, y: 0.16194761, z: 0.16194761}
-  m_Children: []
+  m_Children:
+  - {fileID: 875508360}
+  - {fileID: 88107746}
   m_Father: {fileID: 590871571}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -313, y: 358}
-  m_SizeDelta: {x: 223.3539, y: -377.0645}
+  m_AnchoredPosition: {x: -353, y: 751.92334}
+  m_SizeDelta: {x: 270.922, y: -1277.6438}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &251576601
 MonoBehaviour:
@@ -443,16 +445,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 275876889}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 590871571}
-  m_RootOrder: 9
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 663, y: 600}
+  m_AnchoredPosition: {x: 561, y: 677}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &275876891
@@ -475,7 +477,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SHOOTING
+  m_text: BOUNCING BATTERY BALLS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 25ee44196c8474a4ca45b0790bd00407, type: 2}
   m_sharedMaterial: {fileID: 4168931055597712924, guid: 25ee44196c8474a4ca45b0790bd00407, type: 2}
@@ -538,7 +540,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -370.61203, y: 0, z: 230.29953, w: -38.57715}
+  m_margin: {x: -370.61203, y: 0, z: 50.657074, w: -38.57715}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -845,15 +847,11 @@ RectTransform:
   - {fileID: 1610482743}
   - {fileID: 425597086}
   - {fileID: 1315793027}
-  - {fileID: 875508360}
   - {fileID: 251576600}
+  - {fileID: 275876890}
   - {fileID: 1048782799}
   - {fileID: 1217069536}
-  - {fileID: 1173412555}
   - {fileID: 1296647964}
-  - {fileID: 275876890}
-  - {fileID: 88107746}
-  - {fileID: 1133446746}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1021,16 +1019,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875508359}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.4544542, y: 6.1748366, z: 6.1748366}
   m_Children: []
-  m_Father: {fileID: 590871571}
-  m_RootOrder: 3
+  m_Father: {fileID: 251576600}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -65.32837, y: 495.46777}
+  m_AnchoredPosition: {x: 831.7864, y: 398.55072}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &875508361
@@ -1053,7 +1051,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: move your finger on the left side of the screen to move your ship
+  m_text: Move your finger on the screen to pilot your ship
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 25ee44196c8474a4ca45b0790bd00407, type: 2}
   m_sharedMaterial: {fileID: 4168931055597712924, guid: 25ee44196c8474a4ca45b0790bd00407, type: 2}
@@ -1155,7 +1153,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048782798}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1164,7 +1162,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 604, y: 496}
+  m_AnchoredPosition: {x: 540.20996, y: 496}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1048782800
@@ -1187,7 +1185,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tap and hold on the right side of the screen to charge bounce shots
+  m_text: 'Bouncing Battery Balls launch out of your ship when the battery meter
+    fills up.
+
+
+    When Bouncing Battery Balls hit aliens it fills up your battery
+    faster! '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 25ee44196c8474a4ca45b0790bd00407, type: 2}
   m_sharedMaterial: {fileID: 4168931055597712924, guid: 25ee44196c8474a4ca45b0790bd00407, type: 2}
@@ -1250,7 +1253,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -370.61203, y: 0, z: 151.2753, w: -302.8994}
+  m_margin: {x: -370.61203, y: 0, z: 14.404816, w: -302.8994}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1322,16 +1325,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133446745}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.4544542, y: 6.1748366, z: 6.1748366}
   m_Children: []
-  m_Father: {fileID: 590871571}
-  m_RootOrder: 11
+  m_Father: {fileID: 1296647964}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 281, y: -93}
+  m_AnchoredPosition: {x: 884.3403, y: 1835.9419}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1133446747
@@ -1443,7 +1446,7 @@ GameObject:
   - component: {fileID: 1173412557}
   - component: {fileID: 1173412556}
   m_Layer: 5
-  m_Name: Powershot panel
+  m_Name: Powershot text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1456,16 +1459,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1173412554}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.4544542, y: 6.1748366, z: 6.1748366}
   m_Children: []
-  m_Father: {fileID: 590871571}
-  m_RootOrder: 7
+  m_Father: {fileID: 1296647964}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 272.67163, y: -201.53223}
+  m_AnchoredPosition: {x: 855.57025, y: 1165.7732}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1173412556
@@ -1488,7 +1491,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Catch bounce shots on their way down to charge up a power shot
+  m_text: "Catch bounce shots on their way down to charge up a Power Shot. \nAim
+    Power Shots carefully to destroy aliens! "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 25ee44196c8474a4ca45b0790bd00407, type: 2}
   m_sharedMaterial: {fileID: 4168931055597712924, guid: 25ee44196c8474a4ca45b0790bd00407, type: 2}
@@ -1599,8 +1603,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 356.32837, y: 358.53223}
-  m_SizeDelta: {x: 223.3539, y: -377.0645}
+  m_AnchoredPosition: {x: 346, y: 273.6611}
+  m_SizeDelta: {x: 592.68, y: 671.0142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1217069537
 MonoBehaviour:
@@ -1738,7 +1742,7 @@ GameObject:
   - component: {fileID: 1296647966}
   - component: {fileID: 1296647965}
   m_Layer: 5
-  m_Name: LeftScreen Panel (2)
+  m_Name: Powershot Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1754,14 +1758,16 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.28948134, y: 0.16194761, z: 0.16194761}
-  m_Children: []
+  m_Children:
+  - {fileID: 1173412555}
+  - {fileID: 1133446746}
   m_Father: {fileID: 590871571}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 25, y: -339}
-  m_SizeDelta: {x: 223.3539, y: -377.0645}
+  m_AnchoredPosition: {x: -325.67163, y: -449.7942}
+  m_SizeDelta: {x: 223.3539, y: 256.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1296647965
 MonoBehaviour:

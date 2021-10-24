@@ -1,3 +1,11 @@
+/* Sourcefile:      scr_Rocket.cs
+ * Author:          Sam Pollock
+ * Student Number:  101279608
+ * Last Modified:   October 24th, 2021
+ * Description:     Bonus points rocket for gameplay
+ * Last edit:       Set up patrolling behaviour.
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,14 +18,22 @@ public class scr_Rocket : MonoBehaviour
     public int scoreValue;
 
     private float currentSpeed;
-    // Start is called before the first frame update
+
     void Start()
     {
         currentSpeed = movementSpeed;
     }
 
-    // Update is called once per frame
+
     void Update()
+    {
+        MoveRocket();
+    }
+
+    /// <summary>
+    /// Moves rocket according to speed, flips it when it reaches the ends of the screen. 
+    /// </summary>
+    void MoveRocket()
     {
         transform.Translate(currentSpeed * Time.deltaTime, 0f, 0f);
 
@@ -37,6 +53,7 @@ public class scr_Rocket : MonoBehaviour
             remainingLaps--;
         }
 
+        // Destroys the rocket if it has crossed the screen a certain number of times
         if (remainingLaps <= 0)
         {
             Destroy(gameObject);
@@ -44,6 +61,10 @@ public class scr_Rocket : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Checks for collisions with Power Shot to add player scores
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.GetComponent<scr_PowerShot>() != null)

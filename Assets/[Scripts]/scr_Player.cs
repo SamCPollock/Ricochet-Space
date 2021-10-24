@@ -1,3 +1,11 @@
+/* Sourcefile:      scr_Player.cs
+ * Author:          Sam Pollock
+ * Student Number:  101279608
+ * Last Modified:   October 24th, 2021
+ * Description:     Player ship for gameplay.
+ * Last edit:       Added touch controls
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,8 +53,6 @@ public class scr_Player : MonoBehaviour
     private TextMeshProUGUI scoreTMP;
     private Slider batterySliderUI;
 
-    //private Vector2 touchStartPos = new Vector2(0, 0);
-    //private Vector2 touchMovePos = new Vector2(0, 0);
     private Vector3 moveTarget;
 
 
@@ -66,7 +72,9 @@ public class scr_Player : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Keyboard movement used for testing on desktop
+    /// </summary>
     void KeyboardMovement()
     {
         float hInput = Input.GetAxis("Horizontal");
@@ -87,29 +95,9 @@ public class scr_Player : MonoBehaviour
 
     }
 
-    //void TouchMovement()
-    //{
-    //    foreach (var touch in Input.touches)
-    //    {
-    //        var worldTouch = Camera.main.ScreenToWorldPoint(touch.position);
-
-    //        if (worldTouch.y > transform.position.y)
-    //        {
-    //            // direction is positive
-    //            direction = 1.0f;
-    //        }
-
-    //        if (worldTouch.y < transform.position.y)
-    //        {
-    //            // direction is negative
-    //            direction = -1.0f;
-    //        }
-
-    //        m_touchesEnded = worldTouch;
-
-    //    }
-    //}
-
+    /// <summary>
+    /// Touch movement for use on mobile. Moves towards touch position.
+    /// </summary>
     void TouchMovement()
     {
         if (Input.touchCount > 0)
@@ -125,34 +113,12 @@ public class scr_Player : MonoBehaviour
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, moveTarget, step);
             gameObject.transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
 
+            // Launching bullets automatically according to current battery
             if (isAutoShooting && shotBattery >= shotCost)
             {
                 LaunchBatteryShots();
             }
 
-            //if (xDistance > 0)
-            //{
-            //    {
-            //        gameObject.transform.Translate(new Vector3(-movementSpeed * Time.deltaTime, 0f, 0f));
-            //    }
-            //    gameObject.transform.Translate(new Vector3(-movementSpeed * Time.deltaTime, 0f, 0f));
-            //}
-            //else if (xDistance < 0)
-            //{
-            //    gameObject.transform.Translate(new Vector3(movementSpeed * Time.deltaTime, 0f, 0f));
-
-            //    gameObject.transform.
-            //}
-
-
-            //if (yDistance > 0)
-            //{
-            //    gameObject.transform.Translate(new Vector3(0f, -movementSpeed* Time.deltaTime, 0f));
-            //}
-            //else if (yDistance < 0)
-            //{
-            //    gameObject.transform.Translate(new Vector3(0.0f, movementSpeed * Time.deltaTime, 0f));
-            //}
         }
 
   
@@ -195,7 +161,9 @@ public class scr_Player : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Checks bounds against screen size to ensure player stays on screen.
+    /// </summary>
     void CheckBounds()
     {
         // Check horizontal bounds
@@ -219,6 +187,10 @@ public class scr_Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Checking for collision against BounceShot and enemy projectiles
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Bounce shot caught
@@ -236,11 +208,17 @@ public class scr_Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Slows player while charging a shot (Used in Keyboard controls)
+    /// </summary>
     void StartCharging()
     {
         movementSpeed = chargingMovementSpeed;
     }
 
+    /// <summary>
+    /// Launches shots when releasing button. (Used in keyboard controls)
+    /// </summary>
     void ReleaseCharging()
     {
 
@@ -254,6 +232,9 @@ public class scr_Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Instantiate shots and set their speed.
+    /// </summary>
     void LaunchBatteryShots()
     {
         scr_SoundEffectsManager.SFXManager.PlaySoundEffect(1);
@@ -265,6 +246,9 @@ public class scr_Player : MonoBehaviour
         shotBattery -= shotCost;
     }
 
+    /// <summary>
+    /// Create a shrinking circle to indicate charge time, then instantiate a power shot at end of charge time.
+    /// </summary>
     void PowerShot()
     {
         scr_SoundEffectsManager.SFXManager.PlaySoundEffect(5);
@@ -273,11 +257,17 @@ public class scr_Player : MonoBehaviour
         Invoke("LaunchPowerShot", powerShotChargeTime);
     }
 
+    /// <summary>
+    /// Create a power shot
+    /// </summary>
     void LaunchPowerShot()
     {
         GameObject powerShot = Instantiate(powerShotPrefab, gameObject.transform.position, Quaternion.identity) as GameObject;
     }
 
+    /// <summary>
+    /// Automatic passive battery generation
+    /// </summary>
     void GenerateBattery()
     {
         if (shotBattery < shotBatteryMax)
@@ -290,17 +280,24 @@ public class scr_Player : MonoBehaviour
             shotBattery = shotBatteryMax;
         }
 
+        // update the battery UI element 
         batterySliderUI.value = shotBattery;
         
     }
 
-
+    /// <summary>
+    /// Increase score. Called by enemies.
+    /// </summary>
+    /// <param name="scoreToAdd"></param>
     public void AddScore(int scoreToAdd)
     {
         score += scoreToAdd;
         scoreTMP.text = score.ToString();
     }
 
+    /// <summary>
+    /// Losing life. Called when hit by projectiles. Plays sound, updates UI, and moves to game over if out of lives. 
+    /// </summary>
     public void LoseLife()
     {
 
@@ -327,6 +324,9 @@ public class scr_Player : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Updates scores and loads Game over screen
+    /// </summary>
     void GameOver()
     {
         if (!PlayerPrefs.HasKey("Highscore"))

@@ -1,9 +1,12 @@
 /*
-File name:      SceneButton.cs 
-Author name:    Sam Pollock, Student #101279608 
-Last modified:  October 1, 2021
-Description:    Handles scene changing.
+/* Sourcefile:      scr_SceneButton.cs
+ * Author:          Sam Pollock
+ * Student Number:  101279608
+ * Last Modified:   October 20th, 2021
+ * Description:     Handles scene changing on button press
+ * Last edit:       Created script
  */
+
 
 using System.Collections;
 using System.Collections.Generic;
@@ -12,21 +15,10 @@ using UnityEngine.SceneManagement;
 
 public class scr_SceneButton : MonoBehaviour
 {
-    [SerializeField]
-    //int targetSceneIndex;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    /// <summary>
+    /// Loads up a scene according to an index passed to the function.
+    /// </summary>
+    /// <param name="targetSceneIndex"></param>
     public void OnSceneChangeButtonPressed(int targetSceneIndex)
     {
         SceneManager.LoadScene(targetSceneIndex);
